@@ -1,6 +1,5 @@
 <template>
-      <div class="text-center">
-      </div>
+  <div class="text-center" />
 </template>
 
 <script>

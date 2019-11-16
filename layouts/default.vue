@@ -1,10 +1,9 @@
 <template>
-  <v-app dark>
+  <v-app>
     <nuxt />
   </v-app>
 </template>
 
 <script>
-export default {
-}
+export default {}
 </script>
