@@ -4,9 +4,9 @@
       <div class='main-contents'>
           <div class='cal-header text-center'>
               <!-- // TODO クリックで今月先月行き来する@clickつける -->
-              <v-btn text small class='button'>＜</v-btn>
+              <v-btn text small @click="getPrevMonth()" class='button'>＜</v-btn>
               {{  month  }}
-              <v-btn text small class='button'>＞</v-btn>
+              <v-btn text small  @click="getNextMonth()" class='button'>＞</v-btn>
           </div>
           <v-sheet height="400">
             <v-calendar
@@ -48,17 +48,22 @@ export default {
   mounted () {
     console.log(this)
     console.log(this.date)
-    // this.getMonth()
+    this.month = this.getDate
   },
 
-  method: {
-    // TODO 現在月を取得するロジック書く
-    getMonth () {
-      this.month = JSON.parse(this.month)
-      this.month = 'Nov'
-      return this.month
+  computed: {
+    getDate () {
+      const month = new Date()
+      console.log(month)
+      return month
     }
-    // TODO 来月を取得するロジック書く
+  },
+
+  methods: {
+    // TODO 現在月を取得するロジック書く
+    getPrevMonth () {
+
+    }// TODO 来月を取得するロジック書く
     // TODO 先月を取得するロジック書く
   }
 }
@@ -74,7 +79,7 @@ export default {
   color: black;
 }
 .cal-header {
-    background: #FAFAFA;
+    background: rgb(32, 136, 221);
     color: black;
     width: 100%;
     height: 60px;
