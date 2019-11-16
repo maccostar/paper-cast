@@ -12,6 +12,44 @@
         </v-btn>
       </div>
     </div>
+    <v-dialog
+      v-model="showModal"
+      width="400"
+    >
+    <v-card
+      height="200px"
+    >
+        <v-card-title
+          class="headline grey lighten-2"
+          primary-title
+        >
+          配信指示完了
+        </v-card-title>
+
+        <v-card-text
+          color="Black"
+        >
+          <br>
+          カレンダーを印刷しています。
+          <br>
+          しばらく落ちください。
+          </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+             rounded
+             color="primary"
+             dark
+            @click="showModal = false"
+          >
+            OK
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -25,7 +63,8 @@ export default {
   },
   data () {
     return {
-      today: moment().format('YYYY-MM-DD')
+      today: moment().format('YYYY-MM-DD'),
+      showModal: false
     }
   },
 
@@ -38,6 +77,10 @@ export default {
   methods: {
     async onDelivery () {
       await this.$axios.$put(`/api/deliveryDate/?deliveryDate=${+this.today.split('-').pop()}`)
+      this.showModal = true
+    },
+    closeModal () {
+      this.showModal = false
     }
   }
 }
