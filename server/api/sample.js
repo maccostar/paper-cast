@@ -1,5 +1,6 @@
-const twice = require('../utils/twice')
+const print = require('../utils/print')
 
-module.exports = (req, res) => {
-  res.json({ test: twice(11) })
+module.exports = async (req, res) => {
+  const { printerEmail, filePath } = req.body
+  res.sendStatus(await print(printerEmail, filePath))
 }
