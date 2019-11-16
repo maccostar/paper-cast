@@ -1,13 +1,13 @@
 require('dotenv').config()
 const bodyParser = require('body-parser')
 const app = require('express')()
+const deliveryApi = require('./api/deliveryDate')
 const printerApi = require('./api/printers')
-const sampleApi = require('./api/sample')
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+app.use('/deliveryDate', deliveryApi)
 app.use('/printers', printerApi)
-app.use('/sample', sampleApi)
 
 module.exports = {
   path: '/api',

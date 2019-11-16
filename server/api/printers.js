@@ -1,23 +1,18 @@
-const fs = require('fs')
-const jsonPath = './server/storage/printers.json'
-const printers = JSON.parse(fs.readFileSync(jsonPath, 'utf8'))
-const save = () => fs.writeFileSync(jsonPath, JSON.stringify(printers), 'utf8')
+const { getPrinters, addPrinter,deletePrinter } = require('../utils/managePrinters')
 
 module.exports = (req, res) => {
   switch (req.method.toLowerCase()) {
     case 'get':
-      res.json(printers)
+      res.json(getPrinters())
       break
 
     case 'post':
-      printers.push(req.body.email)
-      save()
+      addPrinter(req.body.email)
       res.sendStatus(204)
       break
 
     case 'delete':
-      printers.splice(printers.indexOf(req.query.email), 1)
-      save()
+      deletePrinter(req.query.email)
       res.sendStatus(204)
       break
 

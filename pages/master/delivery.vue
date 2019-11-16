@@ -36,9 +36,8 @@ export default {
   },
 
   methods: {
-    // TODO APIとdateの型をすり合わせる
     async onDelivery () {
-      await this.$axios.$put('/api/deliveryDate/?deliveryDate=' + this.today)
+      await this.$axios.$put(`/api/deliveryDate/?deliveryDate=${+this.today.split('-').pop()}`)
     }
   }
 }
