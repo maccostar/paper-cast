@@ -1,33 +1,29 @@
 <template>
-    <div class='page'>
-      <div class='title'>配信先一覧</div>
-      <div class='main-contents'>
-        <div class='container'>
-          <ul>
-            <li v-for="item in data" :key="item.index" class='company-list'>
-              <div class='company-name'>
+  <div class="page">
+    <div class="title">
+      配信先一覧
+    </div>
+    <div class="main-contents">
+      <div class="container">
+        <ul>
+          <li v-for="item in data" :key="item.index" class="company-list">
+            <div class="company-name">
               {{ item.companyName }}
-              </div>
-              <ul>
-                <li v-for="(prenter, index2) in item.printers" :key="index2"  class='printer-address'>
-                    {{ prenter.address }}
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
+            </div>
+            <ul>
+              <li v-for="(prenter, index2) in item.printers" :key="index2" class="printer-address">
+                {{ prenter.address }}
+              </li>
+            </ul>
+          </li>
+        </ul>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
 export default {
-  async asyncData ({ $axios }) {
-    return {
-      // TODO プリンタ一覧を取得する
-      date: await $axios.$get('https://api.coindesk.com/v1/bpi/currentprice.json')
-    }
-  },
 
   data () {
     return {
@@ -53,6 +49,12 @@ export default {
           ]
         }
       ]
+    }
+  },
+  async asyncData ({ $axios }) {
+    return {
+      // TODO プリンタ一覧を取得する
+      date: await $axios.$get('https://api.coindesk.com/v1/bpi/currentprice.json')
     }
   },
 

@@ -1,16 +1,20 @@
 <template>
-    <div class='page'>
-      <div class='title'>配信日選択</div>
-      <div class='main-contents date-picker'>
-        <v-date-picker
-          v-model="today"
-          is-inline
-        />
-          <div class='button date-picker'>
-            <v-btn rounded color="primary" dark @click='onDelivery()'>配信</v-btn>
-          </div>
+  <div class="page">
+    <div class="title">
+      配信日選択
+    </div>
+    <div class="main-contents date-picker">
+      <v-date-picker
+        v-model="today"
+        is-inline
+      />
+      <div class="button date-picker">
+        <v-btn @click="onDelivery()" rounded color="primary" dark>
+          配信
+        </v-btn>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -22,10 +26,10 @@ export default {
     }
   },
 
-  mounted () {
+  computed: {
   },
 
-  computed: {
+  mounted () {
   },
 
   methods: {
