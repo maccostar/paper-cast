@@ -1,34 +1,32 @@
 <template>
-    <div class='page'>
-      <div class='title'>配信先一覧</div>
-      <div class='main-contents'>
-        <div class='container'>
-          <ul>
-            <li v-for="item in data" :key="item.index" class='company-list'>
-              <div class='company-name'>
+  <div>
+    <page-title title="配信先一覧" />
+    <div class="main-contents">
+      <div class="container">
+        <ul>
+          <li v-for="item in data" :key="item.index" class="company-list">
+            <div class="company-name">
               {{ item.companyName }}
-              </div>
-              <ul>
-                <li v-for="(prenter, index2) in item.printers" :key="index2"  class='printer-address'>
-                    {{ prenter.address }}
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </div>
+            </div>
+            <ul>
+              <li v-for="(prenter, index2) in item.printers" :key="index2" class="printer-address">
+                {{ prenter.address }}
+              </li>
+            </ul>
+          </li>
+        </ul>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
-export default {
-  async asyncData ({ $axios }) {
-    return {
-      // TODO プリンタ一覧を取得する
-      date: await $axios.$get('https://api.coindesk.com/v1/bpi/currentprice.json')
-    }
-  },
+import PageTitle from '~/components/PageTitle.vue'
 
+export default {
+  components: {
+    PageTitle
+  },
   data () {
     return {
     // TODO API取ってこれたらこれ↓消す
@@ -55,10 +53,16 @@ export default {
       ]
     }
   },
+  async asyncData ({ $axios }) {
+    return {
+      // TODO プリンタ一覧を取得する
+      date: await $axios.$get('https://api.coindesk.com/v1/bpi/currentprice.json')
+    }
+  },
 
   mounted () {
-    console.log(this)
-    console.log(this.data)
+    // console.log(this)
+    // console.log(this.data)
   }
 }
 </script>
@@ -87,9 +91,6 @@ export default {
     padding: 2%;
     padding-left: 15%;
     padding-right: 5%;
-}
-.page {
-    background: white
 }
 ul {
   list-style: none;

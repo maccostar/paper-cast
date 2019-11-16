@@ -1,31 +1,38 @@
 <template>
-    <div class='page'>
-      <div class='title'>配信日選択</div>
-      <div class='main-contents date-picker'>
-        <v-date-picker
-          v-model="today"
-          is-inline
-        />
-          <div class='button date-picker'>
-            <v-btn rounded color="primary" dark @click='onDelivery()'>配信</v-btn>
-          </div>
+  <div>
+    <page-title title="配信日選択" />
+    <div class="main-contents date-picker">
+      <v-date-picker
+        v-model="today"
+        is-inline
+      />
+      <div class="button date-picker">
+        <v-btn @click="onDelivery()" rounded color="primary" dark>
+          配信
+        </v-btn>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
 import moment from 'moment'
+import PageTitle from '~/components/PageTitle.vue'
+
 export default {
+  components: {
+    PageTitle
+  },
   data () {
     return {
       today: moment().format('YYYY-MM-DD')
     }
   },
 
-  mounted () {
+  computed: {
   },
 
-  computed: {
+  mounted () {
   },
 
   methods: {
@@ -50,9 +57,6 @@ export default {
 .button {
   padding: 10%;
   padding-left: 110px;
-}
-.page {
-    background: white
 }
 .main-contents {
     margin-top: 50px;
