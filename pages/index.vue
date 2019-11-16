@@ -27,7 +27,7 @@
                       {{ content.creatorName }}
                     </v-list-item-subtitle>
                   </div>
-                  <v-list-item-subtitle class="mb-1">
+                  <v-list-item-subtitle class="mb-1 font-color-b">
                     配信頻度：{{ content.frequency }}
                   </v-list-item-subtitle>
                   <v-card-actions class="pl-0">
@@ -190,5 +190,8 @@ export default {
 .delete-mw {
   min-width: 0 !important;
   margin-left: 0 !important;
+}
+.font-color-b {
+  color: rgba(0, 0, 0, 0.87) !important;
 }
 </style>
