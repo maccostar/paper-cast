@@ -28,7 +28,7 @@
                   <v-list-item-title v-text="item" />
                 </v-list-item-content>
                 <img
-                  @click="deleteEmail(i)"
+                  @click="deleteEmail(item)"
                   src="~/assets/images/buttons/cancel-button.png"
                   alt="Vuetify.js"
                   class="cancel-button"
@@ -85,17 +85,17 @@
 export default {
   data: () => ({
     items: [
-      'example.example@example.co.jp',
-      'example.example@example.co.jp',
-      'example.example@example.co.jp',
-      'example.example@example.co.jp'
+      'example.example1@example.co.jp',
+      'example.example2@example.co.jp',
+      'example.example3@example.co.jp',
+      'example.example4@example.co.jp'
     ],
     dialog: false,
     model: ['Carrots']
   }),
   methods: {
     deleteEmail (i) {
-      this.items = this.items.filter((email, index) => index !== i)
+      this.items = this.items.filter(email => email !== i)
     }
   }
 
