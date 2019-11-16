@@ -102,14 +102,13 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang=scss scoped>
 .text-color {
-  color: #1F55AC;
+  color: $primary-color;
 }
-
 .page-title {
+  color: $primary-color;
   font-size: 1.5rem;
-  color: #1F55AC;
   margin: 50px 50px;
 }
 .cancel-button {
