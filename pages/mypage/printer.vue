@@ -109,7 +109,7 @@ export default {
 .page-title {
   color: $primary-color;
   font-size: 1.5rem;
-  margin: 50px 50px;
+  margin: 1.5rem 0;
 }
 .cancel-button {
   width: 20px;
