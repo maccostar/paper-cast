@@ -1,8 +1,6 @@
 <template>
-  <div class="page">
-    <div class="title">
-      配信先一覧
-    </div>
+  <div>
+    <page-title title="配信先一覧" />
     <div class="main-contents">
       <div class="container">
         <ul>
@@ -23,8 +21,12 @@
 </template>
 
 <script>
-export default {
+import PageTitle from '~/components/PageTitle.vue'
 
+export default {
+  components: {
+    PageTitle
+  },
   data () {
     return {
     // TODO API取ってこれたらこれ↓消す
@@ -59,8 +61,8 @@ export default {
   },
 
   mounted () {
-    console.log(this)
-    console.log(this.data)
+    // console.log(this)
+    // console.log(this.data)
   }
 }
 </script>
@@ -89,9 +91,6 @@ export default {
     padding: 2%;
     padding-left: 15%;
     padding-right: 5%;
-}
-.page {
-    background: white
 }
 ul {
   list-style: none;

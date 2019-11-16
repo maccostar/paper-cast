@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div class="page-title">
-      登録中のプリンター
-    </div>
+    <page-title title="登録中のプリンター" />
     <v-card
       class="mx-auto"
       max-width="500"
@@ -82,7 +80,12 @@
 </template>
 
 <script>
+import PageTitle from '~/components/PageTitle.vue'
+
 export default {
+  components: {
+    PageTitle
+  },
   data: () => ({
     items: [
       'example.example1@example.co.jp',
@@ -105,11 +108,6 @@ export default {
 <style lang=scss scoped>
 .text-color {
   color: $primary-color;
-}
-.page-title {
-  color: $primary-color;
-  font-size: 1.5rem;
-  margin: 1.5rem 0;
 }
 .cancel-button {
   width: 20px;

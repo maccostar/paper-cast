@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div class="page-title">
-      コンテンツ一覧
-    </div>
+    <page-title title="コンテンツ一覧" />
     <div class="content-wrapper">
       <template v-for="(category, index) in sortComponents">
         <div :key="`category-${index}`" class="page-subtitle">
@@ -53,7 +51,12 @@
 </template>
 
 <script>
+import PageTitle from '~/components/PageTitle.vue'
+
 export default {
+  components: {
+    PageTitle
+  },
   data: () => ({
     contents: [
       {
