@@ -1,70 +1,38 @@
 <template>
     <div class='page'>
       <div class='title'>配信日選択</div>
-      <div class='main-contents'>
-          <div class='cal-header text-center'>
-              <!-- // TODO クリックで今月先月行き来する@clickつける -->
-              <v-btn text small @click="getPrevMonth()" class='button'>＜</v-btn>
-              {{  month  }}
-              <v-btn text small  @click="getNextMonth()" class='button'>＞</v-btn>
+      <div class='main-contents date-picker'>
+        <v-date-picker
+          v-model="today"
+          is-inline
+        />
+          <div class='button date-picker'>
+            <v-btn rounded color="primary" dark @click='onDelivery()'>配信</v-btn>
           </div>
-          <v-sheet height="400">
-            <v-calendar
-              type="month"
-              :now="today"
-              :value="today"
-              :light="true"
-              :shortMonths="true"
-            ></v-calendar>
-          </v-sheet>
-          <div class="send-bottom-area text-center">
-              <!-- // TODO 配信ボタンクリックで送信するロジック@clickかく（暇があったら確認モーダルつける） -->
-            <v-btn rounded color="primary" dark>配信</v-btn>
-          </div>
-        </div>
+      </div>
     </div>
 </template>
 
 <script>
+import moment from 'moment'
 export default {
-  async asyncData ({ $axios }) {
-    return {
-      // 現在日時を取得する
-      date: await $axios.$get('https://api.coindesk.com/v1/bpi/currentprice.json')
-    }
-  },
-
   data () {
     return {
-      today: '2019-11-16',
-      selectedDate: [],
-      // TODO 今月は後で空文字にする
-      month: 'November 2019',
-      nextMonth: '',
-      prevMonth: ''
+      today: moment().format('YYYY-MM-DD')
     }
   },
 
   mounted () {
-    console.log(this)
-    console.log(this.date)
-    this.month = this.getDate
   },
 
   computed: {
-    getDate () {
-      const month = new Date()
-      console.log(month)
-      return month
-    }
   },
 
   methods: {
-    // TODO 現在月を取得するロジック書く
-    getPrevMonth () {
-
-    }// TODO 来月を取得するロジック書く
-    // TODO 先月を取得するロジック書く
+    // TODO APIとdateの型をすり合わせる
+    async onDelivery () {
+      await this.$axios.$put('/api/deliveryDate/?deliveryDate=' + this.today)
+    }
   }
 }
 </script>
@@ -75,15 +43,13 @@ export default {
   padding: 20px;
   color:#2196F3;
 }
-.button {
-  color: black;
+.date-picker {
+  padding-right: 9%;
+  padding-left: 9%;
 }
-.cal-header {
-    background: rgb(32, 136, 221);
-    color: black;
-    width: 100%;
-    height: 60px;
-    padding: 15px;
+.button {
+  padding: 10%;
+  padding-left: 110px;
 }
 .page {
     background: white
@@ -95,7 +61,9 @@ export default {
     margin-bottom: 110px;
     width: 50%;
 }
-.send-bottom-area {
+.send-botton-area {
+  padding-left: 100px;
+  margin-right: auto;
   margin-top: 30px;
 }
 </style>
