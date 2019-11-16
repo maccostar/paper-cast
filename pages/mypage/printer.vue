@@ -58,10 +58,7 @@
             <v-container>
               <v-row>
                 <v-col cols="12">
-                  <v-text-field label="Email*" required />
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field label="Password*" type="password" required />
+                  <v-text-field :value="newEmail" @input="newEmail = $event" label="Email*" required />
                 </v-col>
               </v-row>
             </v-container>
@@ -71,7 +68,7 @@
             <v-btn @click="dialog = false" color="blue darken-1" text>
               閉じる
             </v-btn>
-            <v-btn @click="dialog = false" color="blue darken-1" text>
+            <v-btn @click="registerEmail" color="blue darken-1" text>
               登録
             </v-btn>
           </v-card-actions>
@@ -84,21 +81,32 @@
 <script>
 export default {
   data: () => ({
-    items: [
-      'example.example1@example.co.jp',
-      'example.example2@example.co.jp',
-      'example.example3@example.co.jp',
-      'example.example4@example.co.jp'
-    ],
     dialog: false,
+    newEmail: '',
     model: ['Carrots']
   }),
+  async asyncData ({ $axios }) {
+    return {
+      items: await $axios.$get('/api/printers')
+    }
+  },
   methods: {
-    deleteEmail (i) {
-      this.items = this.items.filter(email => email !== i)
+    async getItems () {
+      this.items = await this.$axios.$get('/api/printers')
+    },
+
+    async deleteEmail (email) {
+      await this.$axios.$delete(`/api/printers/?email=${email}`)
+      await this.getItems()
+    },
+
+    async registerEmail () {
+      this.dialog = false
+      await this.$axios.$post('/api/printers', { email: this.newEmail })
+      this.newEmail = ''
+      await this.getItems()
     }
   }
-
 }
 </script>
 
