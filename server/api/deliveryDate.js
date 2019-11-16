@@ -7,6 +7,11 @@ module.exports = async (req, res) => {
       const printers = getPrinters()
       const day = req.query.deliveryDate
       await Promise.all(printers.map(email => print(email, `./static/printers/${email}/${day}.jpg`)))
+
+      if (day === '30') {
+        await Promise.all(printers.map(email => print(email, `./static/printers/${email}/31.jpg`)))
+      }
+
       res.sendStatus(204)
       break
 
