@@ -27,10 +27,9 @@
                 <v-list-item-content>
                   <v-list-item-title v-text="item" />
                 </v-list-item-content>
-
                 <img
                   @click="deleteEmail(i)"
-                  src="../../static/buttons/cancel-button.png"
+                  src="~/assets/images/buttons/cancel-button.png"
                   alt="Vuetify.js"
                   class="cancel-button"
                 >
@@ -95,11 +94,9 @@ export default {
     model: ['Carrots']
   }),
   methods: {
-    deleteEmail (email) {
-      this.items = JSON.parse(JSON.stringify(this.items))
-      this.items.splice(email, 1)
+    deleteEmail (i) {
+      this.items = this.items.filter((email, index) => index !== i)
     }
-
   }
 
 }
