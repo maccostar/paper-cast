@@ -82,5 +82,7 @@ export default {
     */
     extend (config, ctx) {
     }
-  }
+  },
+
+  serverMiddleware: ['~/server/index.js']
 }
