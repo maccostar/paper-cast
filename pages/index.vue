@@ -6,7 +6,7 @@
         <div :key="`category-${index}`" class="page-subtitle">
           {{ category.genre }}
         </div>
-        <div :key="`cate-${index}`" class="d-flex align-content-start flex-wrap mb-6">
+        <div :key="`cate-${index}`" class="d-flex align-content-start flex-wrap mb-8">
           <template v-for="(content, i) in category.contents">
             <v-card
               :key="`divider-${i}`"
@@ -19,24 +19,27 @@
                   <v-list-item-title class="headline mb-1">
                     {{ content.title }}
                   </v-list-item-title>
-                  <v-list-item-subtitle>{{ content.explain }}</v-list-item-subtitle>
-                  <div class="mb-1 right">
-                    {{ content.creatorName }}
+                  <div class="content-detail">
+                    <v-list-item-subtitle>
+                      {{ content.explain }}
+                    </v-list-item-subtitle>
+                    <v-list-item-subtitle class="mb-1 right">
+                      {{ content.creatorName }}
+                    </v-list-item-subtitle>
                   </div>
-                  <div class="overline mb-1">
+                  <v-list-item-subtitle class="mb-1 font-color-b">
                     配信頻度：{{ content.frequency }}
-                  </div>
-                  <div>
-                    <v-btn text class="link-color font-weight-bold">
+                  </v-list-item-subtitle>
+                  <v-card-actions class="pl-0">
+                    <v-btn color="blue darken-1 mr-0" class="delete-mw" text>
                       詳細
                     </v-btn>
-                    <v-btn text class="link-color font-weight-bold">
+                    <v-btn color="blue darken-1 ml-0 mr-0" class="delete-mw" text>
                       登録
                     </v-btn>
-                  </div>
+                  </v-card-actions>
                 </v-list-item-content>
                 <img
-                  @click="deleteEmail(item)"
                   :src="content.coverThumbnail"
                   alt="Vuetify.js"
                   class="cover-thumbnail"
@@ -156,10 +159,9 @@ export default {
 .link-color {
   color: #2196F3;
 }
-.page-title {
-  color: $primary-color;
-  font-size: 1.5rem;
-  margin: 1.5rem 0;
+.content-detail {
+  min-height: 3.7rem;
+  max-width: 12rem;
 }
 .page-subtitle {
   color: $primary-color;
@@ -179,13 +181,17 @@ export default {
 }
 .cover-thumbnail {
   max-height: 140px;
-  max-width: 140px;
+  max-width: 130px;
   margin: 15px 0;
-}
-.v-btn {
-  min-width: 0;
 }
 .v-list-item--three-line {
   min-width: 341px;
+}
+.delete-mw {
+  min-width: 0 !important;
+  margin-left: 0 !important;
+}
+.font-color-b {
+  color: rgba(0, 0, 0, 0.87) !important;
 }
 </style>
