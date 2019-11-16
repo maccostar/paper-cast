@@ -1,9 +1,7 @@
 <template>
-  <v-app dark>
-  </v-app>
+  <v-app />
 </template>
 
 <script>
-export default {
-}
+export default {}
 </script>
