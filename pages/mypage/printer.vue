@@ -11,22 +11,22 @@
           multiple
           class="email-container"
         >
-          <template v-for="(item, i) in items">
+          <template v-for="(printer, i) in printers">
             <v-divider
-              v-if="!item"
+              v-if="!printer"
               :key="`divider-${i}`"
             />
             <v-list-item
               v-else
               :key="`item-${i}`"
-              :value="item"
+              :value="printer"
             >
               <template>
                 <v-list-item-content>
-                  <v-list-item-title v-text="item" />
+                  <v-list-item-title v-text="printer" />
                 </v-list-item-content>
                 <img
-                  @click="deleteEmail(item)"
+                  @click="deleteEmail(printer)"
                   src="~/assets/images/buttons/cancel-button.png"
                   alt="Vuetify.js"
                   class="cancel-button"
@@ -90,24 +90,24 @@ export default {
   }),
   async asyncData ({ $axios }) {
     return {
-      items: await $axios.$get('/api/printers')
+      printers: await $axios.$get('/api/printers')
     }
   },
   methods: {
-    async getItems () {
-      this.items = await this.$axios.$get('/api/printers')
+    async getPrinters () {
+      this.printers = await this.$axios.$get('/api/printers')
     },
 
     async deleteEmail (email) {
       await this.$axios.$delete(`/api/printers/?email=${email}`)
-      await this.getItems()
+      await this.getPrinters()
     },
 
     async registerEmail () {
       this.dialog = false
       await this.$axios.$post('/api/printers', { email: this.newEmail })
       this.newEmail = ''
-      await this.getItems()
+      await this.getPrinters()
     }
   }
 }

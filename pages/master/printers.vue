@@ -4,15 +4,8 @@
     <div class="main-contents">
       <div class="container">
         <ul>
-          <li v-for="item in data" :key="item.index" class="company-list">
-            <div class="company-name">
-              {{ item.companyName }}
-            </div>
-            <ul>
-              <li v-for="(prenter, index2) in item.printers" :key="index2" class="printer-address">
-                {{ prenter.address }}
-              </li>
-            </ul>
+          <li v-for="printer in printers" :key="printer" class="company-list">
+            {{ printer }}
           </li>
         </ul>
       </div>
@@ -27,42 +20,10 @@ export default {
   components: {
     PageTitle
   },
-  data () {
-    return {
-    // TODO API取ってこれたらこれ↓消す
-      data: [
-        {
-          companyId: 1,
-          companyName: 'CompanyA',
-          printers: [
-            { address: 'aaaa@abc.abc' },
-            { address: 'aaaa@abc.abc' },
-            { address: 'aaaa@abc.abc' },
-            { address: 'aaaa@abc.abc' }
-          ]
-        },
-        {
-          companyId: 2,
-          companyName: 'CompanyB',
-          printers: [
-            { address: 'aaaa@abc.abc' },
-            { address: 'aaaa@abc.abc' },
-            { address: 'aaaa@abc.abc' }
-          ]
-        }
-      ]
-    }
-  },
   async asyncData ({ $axios }) {
     return {
-      // TODO プリンタ一覧を取得する
-      date: await $axios.$get('https://api.coindesk.com/v1/bpi/currentprice.json')
+      printers: await $axios.$get('/api/printers')
     }
-  },
-
-  mounted () {
-    // console.log(this)
-    // console.log(this.data)
   }
 }
 </script>
@@ -78,11 +39,6 @@ export default {
   margin-right: auto;
   padding-bottom: 10px;
   border:2px solid rgb(209, 206, 206);
-}
-.company-name {
-    font-size: 140%;
-    font-weight: bold;
-    color:rgb(41, 149, 238);
 }
 .printer-address {
     padding: 2px;
