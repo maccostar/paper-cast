@@ -64,6 +64,42 @@
         </div>
       </v-sheet>
     </v-container>
+    <v-dialog
+      v-model="showModal"
+      width="400"
+    >
+      <v-card
+        height="200px"
+      >
+        <v-card-title
+          class="headline grey lighten-2"
+          primary-title
+        >
+          配信指示完了
+        </v-card-title>
+
+        <v-card-text
+          color="Black"
+        >
+          <br>
+          カレンダーを印刷しています。
+          <br>
+          しばらく落ちください。
+        </v-card-text>
+        <v-divider />
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            @click="showModal = false"
+            rounded
+            color="primary"
+            dark
+          >
+            OK
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -78,7 +114,8 @@ export default {
   data () {
     return {
       today: moment().format('YYYY-MM-DD'),
-      newEmail: ''
+      newEmail: '',
+      showModal: false
     }
   },
   computed: {
@@ -95,9 +132,13 @@ export default {
   methods: {
     async onDelivery () {
       await this.$axios.$put(`/api/deliveryDate/?deliveryDate=${+this.today.split('-').pop()}`)
+      this.showModal = true
     },
     async getPrinters () {
       this.printers = await this.$axios.$get('/api/printers')
+    },
+    closeModal () {
+      this.showModal = false
     }
   }
 }
