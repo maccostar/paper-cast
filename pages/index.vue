@@ -35,7 +35,7 @@
                       詳細
                     </v-btn>
                     <v-btn color="blue darken-1 ml-0 mr-0" class="delete-mw" text>
-                      登録
+                      {{ content.hasBought ? "登録解除": "登録" }}
                     </v-btn>
                   </v-card-actions>
                 </v-list-item-content>
@@ -70,6 +70,16 @@ export default {
         creatorName: 'ニーチェ',
         frequency: '毎日',
         coverThumbnail: require('~/assets/images/thumbnails/nietzsche.jpg'),
+        hasBought: false
+      },
+      {
+        contentId: 0,
+        genre: '日めくりカレンダー',
+        title: '犬めくり',
+        explain: '毎日が犬びより',
+        creatorName: '',
+        frequency: '毎日',
+        coverThumbnail: require('~/assets/images/thumbnails/inumekuri.jpg'),
         hasBought: true
       },
       {
@@ -100,7 +110,7 @@ export default {
         creatorName: '',
         frequency: '毎週月曜日',
         coverThumbnail: require('~/assets/images/thumbnails/soseki.jpeg'),
-        hasBought: true
+        hasBought: false
       },
       {
         contentId: 0,
@@ -110,7 +120,7 @@ export default {
         creatorName: 'Audrey Hepburn',
         frequency: '毎週月曜日',
         coverThumbnail: require('~/assets/images/thumbnails/audrey.jpg'),
-        hasBought: true
+        hasBought: false
       },
       {
         contentId: 0,
