@@ -1,17 +1,69 @@
 <template>
   <div>
     <page-title title="配信日選択" />
-    <div class="main-contents date-picker">
-      <v-date-picker
-        v-model="today"
-        is-inline
-      />
-      <div class="button date-picker">
-        <v-btn @click="onDelivery()" rounded color="primary" dark>
-          配信
-        </v-btn>
-      </div>
-    </div>
+    <v-container>
+      <v-sheet
+        elevation="2"
+        class="mx-auto delivery-detail-wrapper"
+      >
+        <v-row justify="space-around">
+          <v-col
+            cols="2"
+            md="6"
+          >
+            <v-card
+              class="mx-auto"
+              max-width="500"
+            >
+              <v-list disabled>
+                <v-list-item-group
+                  multiple
+                  class="email-container"
+                >
+                  <template v-for="(printer, i) in printers">
+                    <v-divider
+                      v-if="!printer"
+                      :key="`divider-${i}`"
+                    />
+                    <v-list-item
+                      v-else
+                      :key="`item-${i}`"
+                      :value="printer"
+                    >
+                      <template>
+                        <v-list-item-content>
+                          <v-list-item-title v-text="printer" />
+                        </v-list-item-content>
+                      </template>
+                    </v-list-item>
+                  </template>
+                </v-list-item-group>
+              </v-list>
+            </v-card>
+          </v-col>
+          <v-col
+            cols="6"
+            md="4"
+            class="text-center"
+          >
+            <v-date-picker
+              v-model="today"
+              is-inline
+            />
+          </v-col>
+        </v-row>
+        <div class="text-center">
+          <v-btn
+            @click="onDelivery()"
+            rounded
+            color="primary button mt-12"
+            dark
+          >
+            配信
+          </v-btn>
+        </div>
+      </v-sheet>
+    </v-container>
   </div>
 </template>
 
@@ -25,11 +77,16 @@ export default {
   },
   data () {
     return {
-      today: moment().format('YYYY-MM-DD')
+      today: moment().format('YYYY-MM-DD'),
+      newEmail: ''
     }
   },
-
   computed: {
+  },
+  async asyncData ({ $axios }) {
+    return {
+      printers: await $axios.$get('/api/printers')
+    }
   },
 
   mounted () {
@@ -38,31 +95,55 @@ export default {
   methods: {
     async onDelivery () {
       await this.$axios.$put(`/api/deliveryDate/?deliveryDate=${+this.today.split('-').pop()}`)
+    },
+    async getPrinters () {
+      this.printers = await this.$axios.$get('/api/printers')
     }
   }
 }
 </script>
 
-<style scoped>
-.title {
-  margin-left: 10%;
-  padding: 20px;
-  color:#2196F3;
+<style lang=scss scoped>
+.delivery-detail-wrapper {
+  padding: 60px 40px;
+  max-width: 1000px;
 }
-.date-picker {
-  padding-right: 9%;
-  padding-left: 9%;
+.text-color {
+  color: $primary-color;
 }
-.button {
-  padding: 10%;
-  padding-left: 110px;
+.email-container {
+  padding: 50px 0;
+  max-width: 370px;
+  min-height: 373px;
+  margin: auto;
+}
+.company-name {
+  font-size: 140%;
+  font-weight: bold;
+  color:rgb(41, 149, 238);
+}
+.printer-address {
+  padding: 2px;
+}
+.company-list {
+  padding: 2%;
+  padding-left: 15%;
+  padding-right: 5%;
+}
+ul {
+  list-style: none;
 }
 .main-contents {
-    margin-top: 50px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 110px;
-    width: 50%;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 110px;
+  width: 50%;
+  color: black;
+}
+.button {
+  height: 46px !important;
+  min-width: 142px !important;
 }
 .send-botton-area {
   padding-left: 100px;
