@@ -1,24 +1,76 @@
 <template>
   <div>
     <page-title title="配信日選択" />
-    <div class="main-contents date-picker">
-      <v-date-picker
-        v-model="today"
-        is-inline
-      />
-      <div class="button date-picker">
-        <v-btn @click="onDelivery()" rounded color="primary" dark>
-          配信
-        </v-btn>
-      </div>
-    </div>
+    <v-container>
+      <v-sheet
+        elevation="2"
+        class="mx-auto delivery-detail-wrapper"
+      >
+        <v-row justify="space-around">
+          <v-col
+            cols="2"
+            md="6"
+          >
+            <v-card
+              class="mx-auto"
+              max-width="500"
+            >
+              <v-list disabled>
+                <v-list-item-group
+                  multiple
+                  class="email-container"
+                >
+                  <template v-for="(printer, i) in printers">
+                    <v-divider
+                      v-if="!printer"
+                      :key="`divider-${i}`"
+                    />
+                    <v-list-item
+                      v-else
+                      :key="`item-${i}`"
+                      :value="printer"
+                    >
+                      <template>
+                        <v-list-item-content>
+                          <v-list-item-title v-text="printer" />
+                        </v-list-item-content>
+                      </template>
+                    </v-list-item>
+                  </template>
+                </v-list-item-group>
+              </v-list>
+            </v-card>
+          </v-col>
+          <v-col
+            cols="6"
+            md="4"
+            class="text-center"
+          >
+            <v-date-picker
+              v-model="today"
+              is-inline
+            />
+          </v-col>
+        </v-row>
+        <div class="text-center">
+          <v-btn
+            @click="onDelivery()"
+            rounded
+            color="primary button mt-12"
+            dark
+          >
+            配信
+          </v-btn>
+        </div>
+      </v-sheet>
+    </v-container>
     <v-dialog
       v-model="showModal"
       width="400"
     >
-    <v-card
-      height="200px"
-    >
+      <v-card
+        height="200px"
+      >
         <v-card-title
           class="headline grey lighten-2"
           primary-title
@@ -33,17 +85,15 @@
           カレンダーを印刷しています。
           <br>
           しばらく落ちください。
-          </v-card-text>
-
-        <v-divider></v-divider>
-
+        </v-card-text>
+        <v-divider />
         <v-card-actions>
-          <v-spacer></v-spacer>
+          <v-spacer />
           <v-btn
-             rounded
-             color="primary"
-             dark
             @click="showModal = false"
+            rounded
+            color="primary"
+            dark
           >
             OK
           </v-btn>
@@ -64,11 +114,16 @@ export default {
   data () {
     return {
       today: moment().format('YYYY-MM-DD'),
+      newEmail: '',
       showModal: false
     }
   },
-
   computed: {
+  },
+  async asyncData ({ $axios }) {
+    return {
+      printers: await $axios.$get('/api/printers')
+    }
   },
 
   mounted () {
@@ -79,6 +134,9 @@ export default {
       await this.$axios.$put(`/api/deliveryDate/?deliveryDate=${+this.today.split('-').pop()}`)
       this.showModal = true
     },
+    async getPrinters () {
+      this.printers = await this.$axios.$get('/api/printers')
+    },
     closeModal () {
       this.showModal = false
     }
@@ -86,30 +144,22 @@ export default {
 }
 </script>
 
-<style scoped>
-.title {
-  margin-left: 10%;
-  padding: 20px;
-  color:#2196F3;
+<style lang=scss scoped>
+.delivery-detail-wrapper {
+  padding: 60px 40px;
+  max-width: 1000px;
 }
-.date-picker {
-  padding-right: 9%;
-  padding-left: 9%;
+.email-container {
+  padding: 50px 0;
+  max-width: 370px;
+  min-height: 373px;
+  margin: auto;
+}
+ul {
+  list-style: none;
 }
 .button {
-  padding: 10%;
-  padding-left: 110px;
-}
-.main-contents {
-    margin-top: 50px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 110px;
-    width: 50%;
-}
-.send-botton-area {
-  padding-left: 100px;
-  margin-right: auto;
-  margin-top: 30px;
+  height: 46px !important;
+  min-width: 142px !important;
 }
 </style>
