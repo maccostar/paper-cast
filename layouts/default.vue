@@ -1,4 +1,5 @@
 <template>
+  <v-app class="layout">
   <v-card
     color="grey lighten-4"
     flat
@@ -21,11 +22,12 @@
 
     </v-toolbar>
   </v-card>
+  <nuxt />
+  </v-app>
 </template>
 
 <script>
-export default {
-}
+export default {}
 </script>
 
 <style scoped>
@@ -33,5 +35,8 @@ export default {
   background: center / cover url('~assets/image/papercast-logo.png');
   height: 180px;
   width: 220px;
+}
+.layout {
+  padding: 70px;
 }
 </style>
