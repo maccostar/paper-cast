@@ -160,6 +160,6 @@ ul {
 }
 .button {
   height: 46px !important;
-  min-width: 142px !important;
+  min-width: 200px !important;
 }
 </style>
