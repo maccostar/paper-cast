@@ -149,46 +149,17 @@ export default {
   padding: 60px 40px;
   max-width: 1000px;
 }
-.text-color {
-  color: $primary-color;
-}
 .email-container {
   padding: 50px 0;
   max-width: 370px;
   min-height: 373px;
   margin: auto;
 }
-.company-name {
-  font-size: 140%;
-  font-weight: bold;
-  color:rgb(41, 149, 238);
-}
-.printer-address {
-  padding: 2px;
-}
-.company-list {
-  padding: 2%;
-  padding-left: 15%;
-  padding-right: 5%;
-}
 ul {
   list-style: none;
-}
-.main-contents {
-  margin-top: 50px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 110px;
-  width: 50%;
-  color: black;
 }
 .button {
   height: 46px !important;
   min-width: 142px !important;
-}
-.send-botton-area {
-  padding-left: 100px;
-  margin-right: auto;
-  margin-top: 30px;
 }
 </style>
